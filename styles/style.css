@@ -11,3 +11,8 @@ img {
 }
 
 /* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
+
+#msg {
+    color: red;
+    font-weight: bold;
+}

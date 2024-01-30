@@ -2,15 +2,15 @@
 
 let users = [
     {
-     username: asd,
-     password: asd
+     username: `asd`,
+     password: `asd`
     },
     {
-     username: qwe,
-     password: qwe
+     username: `qwe`,
+     password: `qwe`
     },
     {
-     username: zxc,
-     password: zxc
+     username: `zxc`,
+     password: `zxc`
     }
 ];
