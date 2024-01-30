@@ -16,3 +16,8 @@ img {
     color: red;
     font-weight: bold;
 }
+
+.d-none {
+    display: none;
+}
+

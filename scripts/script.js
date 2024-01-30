@@ -34,6 +34,7 @@ function validateLogin () {
         }
         }
         else {
+            document.querySelector(`#formDiv`).classList.add(`d-none`);
             initiateGame();
         }
     } catch (error) {
@@ -41,6 +42,34 @@ function validateLogin () {
         document.querySelector(`#msg`).textContent = error.msg
         console.log(error);
     }
-    
-    console.log(`validateLogin()`);
 }
+
+function initiateGame () {
+
+    event.preventDefault();
+
+    let ghostContainer = document.createElement(`div`);
+    ghostContainer.classList.add(`ghost-container`);
+
+    let mainRef = document.querySelector(`main`);
+    mainRef.appendChild(ghostContainer);
+    
+    let randomAmountOfGhosts = Math.floor(Math.random() * 6) + 10;
+    let lefty = oGameData.left();
+    let toppy = oGameData.top();
+
+    for (let i = 0; i < randomAmountOfGhosts; i++){
+
+        let ghostImage = document.createElement(`img`);
+        ghostImage.classList.add(`ghost-image`);
+        ghostImage.src = `/resources/ghost.png`;
+        ghostImage.alt = `Spooky image of ghost.`;
+        ghostImage.style.left = lefty +`px`
+        ghostImage.style.top = toppy +`px`
+
+        
+        ghostContainer.appendChild(ghostImage);
+
+    }
+}
+
