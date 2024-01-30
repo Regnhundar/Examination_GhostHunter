@@ -5,7 +5,15 @@
 
 let oGameData = {
    
-    
+    ghost: {
+        width: 20,
+        height: 20
+    },
+
+    net: {
+        width: 50,
+        height: 30
+    },
 
     //Metod som räknar fram och returnerar ett numeriskt värde som skall utgöra left-koordinaten (CSS) för ett img-element.
     left : function() {
