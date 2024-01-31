@@ -12,7 +12,8 @@ function validateLogin () {
     const pWordNodeRef = document.querySelector(`#password`);
     const checkboxRef = document.querySelector(`#question`);
     const checkedName = users.some(user => user.username === userNameNodeRef.value);
-    const userObject = users.filter(user => user.username === userNameNodeRef.value)
+    const userObject = users.find(user => user.username === userNameNodeRef.value);
+
 
     try {
         if (checkedName === false) {
@@ -21,7 +22,7 @@ function validateLogin () {
                     msg: `Användarnamnet existerar inte`
             }
         }
-        else if (userObject[0].password !== pWordNodeRef.value){
+        else if (userObject.password !== pWordNodeRef.value){
             throw {
                 nodeRef : pWordNodeRef,
                 msg: `Fel lösenord!`
@@ -59,7 +60,7 @@ function initiateGame () {
 
         let lefty = oGameData.left();
         let toppy = oGameData.top();
-
+        
         let ghostImage = document.createElement(`img`);
         ghostImage.classList.add(`ghost-image`);
         ghostImage.alt = `Spooky image of ghost.`;
@@ -83,18 +84,15 @@ function initiateGame () {
     }
 }
 
+
 function pointGoesDown () {
-    let ghostImage = document.querySelector(`.ghost-image`);
-    let netImage = document.querySelector(`.net-image`);
-    ghostImage.classList.toggle(`d-none`);
-    netImage.classList.toggle(`d-none`);
+    event.target.classList.toggle(`d-none`);
+    event.target.nextElementSibling.classList.toggle(`d-none`)
     oGameData.ghostsToCatch--;
 }
 
 function pointGoesUp () {
-    let ghostImage = document.querySelector(`.ghost-image`);
-    let netImage = document.querySelector(`.net-image`);
-    ghostImage.classList.toggle(`d-none`);
-    netImage.classList.toggle(`d-none`);
+    event.target.classList.toggle(`d-none`);
+    event.target.previousElementSibling.classList.toggle(`d-none`)
     oGameData.ghostsToCatch++;
 }
