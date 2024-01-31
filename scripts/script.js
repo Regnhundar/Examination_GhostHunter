@@ -46,18 +46,16 @@ function validateLogin () {
 
 function initiateGame () {
 
-    // event.preventDefault();
-console.log(`initiateGame()`);
     let ghostContainer = document.createElement(`div`);
     ghostContainer.classList.add(`ghost-container`);
 
     let mainRef = document.querySelector(`main`);
     mainRef.appendChild(ghostContainer);
     
-    let randomAmountOfGhosts = Math.floor(Math.random() * 6) + 10;
+    oGameData.ghostsToCatch = Math.floor(Math.random() * 6) + 10;
 
 
-    for (let i = 0; i < randomAmountOfGhosts; i++){
+    for (let i = 0; i < oGameData.ghostsToCatch; i++){
 
         let lefty = oGameData.left();
         let toppy = oGameData.top();
@@ -70,34 +68,19 @@ console.log(`initiateGame()`);
         ghostImage.style.top = toppy +`px`
         ghostContainer.appendChild(ghostImage);
 
-        ghostImage.addEventListener(`mouseenter`, () => {
-            ghostImage.classList.toggle(`d-none`)
-            netImage.classList.toggle(`d-none`)
-        })
-
-
+        ghostImage.addEventListener(`mouseenter`, pointGoesDown);
 
         let netImage = document.createElement(`img`);
-
-
-
         netImage.alt = `Spooky image of net.`;
-
         netImage.src = `/resources/net.png`;
-
         netImage.style.left = lefty +`px`
-
         netImage.style.top = toppy +`px`
-
-
         ghostContainer.appendChild(netImage);
-        netImage.classList.add(`d-none`);
-        netImage.addEventListener(`mouseenter`, () => {
-            netImage.classList.toggle(`d-none`)
-            ghostImage.classList.toggle(`d-none`)
-        })
+        netImage.classList.add(`d-none`, `net-image`);
 
-        console.log(`Ej erorr`);
+        netImage.addEventListener(`mouseenter`, pointGoesUp);
+
     }
 }
+
 

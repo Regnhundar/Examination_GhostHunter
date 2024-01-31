@@ -5,6 +5,8 @@
 
 let oGameData = {
    
+    ghostsToCatch: 0,
+
     ghost: {
         width: 20,
         height: 20
