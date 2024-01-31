@@ -61,7 +61,6 @@ function initiateGame () {
         let lefty = oGameData.left();
         let toppy = oGameData.top();
         
-
         let ghostImage = document.createElement(`img`);
         ghostImage.classList.add(`ghost-image`);
         ghostImage.alt = `Spooky image of ghost.`;
@@ -70,11 +69,7 @@ function initiateGame () {
         ghostImage.style.top = toppy +`px`
         ghostContainer.appendChild(ghostImage);
 
-        ghostImage.addEventListener(`mouseenter`, ()=> {
-            ghostImage.classList.toggle(`d-none`);
-            netImage.classList.toggle(`d-none`);
-            oGameData.ghostsToCatch--;
-        });
+        ghostImage.addEventListener(`mouseenter`, pointGoesDown);
 
         let netImage = document.createElement(`img`);
         netImage.alt = `Spooky image of net.`;
@@ -84,25 +79,20 @@ function initiateGame () {
         ghostContainer.appendChild(netImage);
         netImage.classList.add(`d-none`, `net-image`);
 
-        netImage.addEventListener(`mouseenter`, ()=> {
-            ghostImage.classList.toggle(`d-none`);
-            netImage.classList.toggle(`d-none`);
-            oGameData.ghostsToCatch++;
-        });
+        netImage.addEventListener(`mouseenter`, pointGoesUp);
 
     }
 }
 
 
-// function pointGoesDown () {
+function pointGoesDown () {
+    event.target.classList.toggle(`d-none`);
+    event.target.nextElementSibling.classList.toggle(`d-none`)
+    oGameData.ghostsToCatch--;
+}
 
-//     event.target.classList.toggle(`d-none`);
-
-//     oGameData.ghostsToCatch--;
-//     console.log(oGameData.ghostsToCatch);
-// }
-
-// function pointGoesUp () {
-//     event.target.classList.toggle(`d-none`);
-//     oGameData.ghostsToCatch++;
-// }
+function pointGoesUp () {
+    event.target.classList.toggle(`d-none`);
+    event.target.previousElementSibling.classList.toggle(`d-none`)
+    oGameData.ghostsToCatch++;
+}
