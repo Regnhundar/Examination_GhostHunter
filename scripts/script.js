@@ -90,3 +90,14 @@ function pointGoesDown () {
     netImage.classList.toggle(`d-none`);
     oGameData.ghostsToCatch--;
 }
+
+function poinGoesUp(){
+
+let ghostImage = document.querySelector('.ghost-image')
+let netImage = document.querySelector('.net-image')
+ghostImage.classList.toggle('d-none')
+netImage.classList.toogle('d-none')
+oGameData.ghostsToCatch ++
+
+
+}
