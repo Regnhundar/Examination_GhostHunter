@@ -34,6 +34,7 @@ function validateLogin () {
         }
         }
         else {
+            document.querySelector(`#formDiv`).classList.add(`d-none`);
             initiateGame();
         }
     } catch (error) {
@@ -41,6 +42,51 @@ function validateLogin () {
         document.querySelector(`#msg`).textContent = error.msg
         console.log(error);
     }
+}
+
+function initiateGame () {
+
+    let ghostContainer = document.createElement(`div`);
+    ghostContainer.classList.add(`ghost-container`);
+
+    let mainRef = document.querySelector(`main`);
+    mainRef.appendChild(ghostContainer);
     
-    console.log(`validateLogin()`);
+    oGameData.ghostsToCatch = Math.floor(Math.random() * 6) + 10;
+
+
+    for (let i = 0; i < oGameData.ghostsToCatch; i++){
+
+        let lefty = oGameData.left();
+        let toppy = oGameData.top();
+
+        let ghostImage = document.createElement(`img`);
+        ghostImage.classList.add(`ghost-image`);
+        ghostImage.alt = `Spooky image of ghost.`;
+        ghostImage.src = `/resources/ghost.png`;
+        ghostImage.style.left = lefty +`px`
+        ghostImage.style.top = toppy +`px`
+        ghostContainer.appendChild(ghostImage);
+
+        ghostImage.addEventListener(`mouseenter`, pointGoesDown);
+
+        let netImage = document.createElement(`img`);
+        netImage.alt = `Spooky image of net.`;
+        netImage.src = `/resources/net.png`;
+        netImage.style.left = lefty +`px`
+        netImage.style.top = toppy +`px`
+        ghostContainer.appendChild(netImage);
+        netImage.classList.add(`d-none`, `net-image`);
+
+        netImage.addEventListener(`mouseenter`, pointGoesUp);
+
+    }
+}
+
+function pointGoesDown () {
+    let ghostImage = document.querySelector(`.ghost-image`);
+    let netImage = document.querySelector(`.net-image`);
+    ghostImage.classList.toggle(`d-none`);
+    netImage.classList.toggle(`d-none`);
+    oGameData.ghostsToCatch--;
 }

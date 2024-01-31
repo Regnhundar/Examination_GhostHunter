@@ -5,7 +5,7 @@
 }
 
 img {
-    width: 300px;
+    width: 15vw;
     aspect-ratio: 1;
     position: absolute;
 }
@@ -16,3 +16,15 @@ img {
     color: red;
     font-weight: bold;
 }
+
+.d-none {
+    display: none;
+}
+
+.ghost-container {
+    position: relative;
+}
+
+/* .ghost-image {
+    background-image: url(/resources/ghost.png);
+} */
