@@ -12,7 +12,8 @@ function validateLogin () {
     const pWordNodeRef = document.querySelector(`#password`);
     const checkboxRef = document.querySelector(`#question`);
     const checkedName = users.some(user => user.username === userNameNodeRef.value);
-    const userObject = users.filter(user => user.username === userNameNodeRef.value)
+    const userObject = users.find(user => user.username === userNameNodeRef.value);
+
 
     try {
         if (checkedName === false) {
@@ -21,7 +22,7 @@ function validateLogin () {
                     msg: `Användarnamnet existerar inte`
             }
         }
-        else if (userObject[0].password !== pWordNodeRef.value){
+        else if (userObject.password !== pWordNodeRef.value){
             throw {
                 nodeRef : pWordNodeRef,
                 msg: `Fel lösenord!`
@@ -59,6 +60,7 @@ function initiateGame () {
 
         let lefty = oGameData.left();
         let toppy = oGameData.top();
+        
 
         let ghostImage = document.createElement(`img`);
         ghostImage.classList.add(`ghost-image`);
@@ -68,7 +70,11 @@ function initiateGame () {
         ghostImage.style.top = toppy +`px`
         ghostContainer.appendChild(ghostImage);
 
-        ghostImage.addEventListener(`mouseenter`, pointGoesDown);
+        ghostImage.addEventListener(`mouseenter`, ()=> {
+            ghostImage.classList.toggle(`d-none`);
+            netImage.classList.toggle(`d-none`);
+            oGameData.ghostsToCatch--;
+        });
 
         let netImage = document.createElement(`img`);
         netImage.alt = `Spooky image of net.`;
@@ -78,23 +84,25 @@ function initiateGame () {
         ghostContainer.appendChild(netImage);
         netImage.classList.add(`d-none`, `net-image`);
 
-        netImage.addEventListener(`mouseenter`, pointGoesUp);
+        netImage.addEventListener(`mouseenter`, ()=> {
+            ghostImage.classList.toggle(`d-none`);
+            netImage.classList.toggle(`d-none`);
+            oGameData.ghostsToCatch++;
+        });
 
     }
 }
 
-function pointGoesDown () {
-    let ghostImage = document.querySelector(`.ghost-image`);
-    let netImage = document.querySelector(`.net-image`);
-    ghostImage.classList.toggle(`d-none`);
-    netImage.classList.toggle(`d-none`);
-    oGameData.ghostsToCatch--;
-}
 
-function pointGoesUp () {
-    let ghostImage = document.querySelector(`.ghost-image`);
-    let netImage = document.querySelector(`.net-image`);
-    ghostImage.classList.toggle(`d-none`);
-    netImage.classList.toggle(`d-none`);
-    oGameData.ghostsToCatch++;
-}
+// function pointGoesDown () {
+
+//     event.target.classList.toggle(`d-none`);
+
+//     oGameData.ghostsToCatch--;
+//     console.log(oGameData.ghostsToCatch);
+// }
+
+// function pointGoesUp () {
+//     event.target.classList.toggle(`d-none`);
+//     oGameData.ghostsToCatch++;
+// }
