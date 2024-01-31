@@ -83,4 +83,10 @@ function initiateGame () {
     }
 }
 
-
+function pointGoesDown () {
+    let ghostImage = document.querySelector(`.ghost-image`);
+    let netImage = document.querySelector(`.net-image`);
+    ghostImage.classList.toggle(`d-none`);
+    netImage.classList.toggle(`d-none`);
+    oGameData.ghostsToCatch--;
+}
