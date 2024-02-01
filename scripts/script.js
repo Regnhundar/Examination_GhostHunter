@@ -3,10 +3,23 @@
 window.addEventListener('load', () => {
     //Här kickar ni igång ert program
     document.querySelector(`#spela`).addEventListener(`click`, validateLogin);
-    document.querySelector(`#formDiv`).classList.add(`login-form`);
+    let form = document.querySelector(`#formDiv`);
+    form.classList.add(`login-form`);
     document.querySelector(`#username`).classList.add(`username-input`);
     document.querySelector(`#password`).classList.add(`password-input`);
     document.querySelector(`#spela`).classList.add(`play-button`);
+    let allLabels = document.querySelectorAll(`#formDiv label`);
+    allLabels.forEach(label => label.classList.add(`login-label`));
+    document.querySelector(`#msg`).classList.add(`winner-msg`);
+    document.querySelector(`form div:nth-child(4)`).classList.add(`checkbox-container`);
+
+    let formWrapper = document.createElement(`div`);
+    formWrapper.classList.add(`form-wrapper`);
+    formWrapper.id = `formWrapper`
+    form.parentNode.insertBefore(formWrapper, form);
+
+    formWrapper.appendChild(form);
+
 
 });
 

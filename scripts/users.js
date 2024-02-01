@@ -16,10 +16,5 @@ let users = [
     {
      username: `Jacob`,
      password: `Collen`
-    },
-{
-    username: ``,
-    password: ``
-   }
-
+    }
 ];
