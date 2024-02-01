@@ -2,19 +2,23 @@
 
 let users = [
     {
-     username: `asd`,
-     password: `asd`
+     username: `Peter`,
+     password: `Andersson`
     },
     {
-     username: `qwe`,
-     password: `qwe`
+     username: `Adrean`,
+     password: `Rodriguez`
     },
     {
-     username: `zxc`,
-     password: `zxc`
+     username: `Magnus`,
+     password: `Nilsson`
     },
     {
-        username: ``,
-        password: ``
+     username: `Jacob`,
+     password: `Collen`
+    },
+    {
+    username: `Jesper`,
+    password: `Nyberg`
     }
 ];
