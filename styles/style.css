@@ -10,4 +10,57 @@ img {
     position: absolute;
 }
 
-/* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
+/* Koden ovanför är obligatorisk. Ereventuella(sic) CSS skriver ni nedanför denna kommentar */
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    border: 2px solid black;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+ .winner-msg {
+    color: red;
+    font-weight: bold;
+}
+
+.f-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-label {
+    padding: .4rem 0;
+}
+
+.username-input, 
+.password-input {
+    padding: .5rem .5rem;
+    margin-bottom: .5rem;
+    width: 400px;
+}
+
+.checkbox-container {
+    display: flex;
+    justify-content: space-between;
+    width: 330px;
+}
+
+.play-button {
+    width: 100%;
+    padding: .5rem 0;
+    margin-top: .5rem;
+}
+
+.d-none {
+    display: none;
+}
+
+.ghost-container {
+    position: relative;
+}
+
