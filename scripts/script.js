@@ -3,6 +3,11 @@
 window.addEventListener('load', () => {
     //Här kickar ni igång ert program
     document.querySelector(`#spela`).addEventListener(`click`, validateLogin);
+    document.querySelector(`#formDiv`).classList.add(`login-form`);
+    document.querySelector(`#username`).classList.add(`username-input`);
+    document.querySelector(`#password`).classList.add(`password-input`);
+    document.querySelector(`#spela`).classList.add(`play-button`);
+
 });
 
 function validateLogin () {
@@ -40,7 +45,7 @@ function validateLogin () {
         }
     } catch (error) {
         error.nodeRef.focus();
-        document.querySelector(`#msg`).textContent = error.msg
+        document.querySelector(`#msg`).textContent = error.msg;
 
     }
 }
@@ -48,15 +53,13 @@ function validateLogin () {
 function initiateGame () {
 
     let ghostContainer = document.createElement(`div`);
-
     ghostContainer.classList.add(`ghost-container`);
-
-
     let mainRef = document.querySelector(`main`);
     mainRef.appendChild(ghostContainer);
-    ghostContainer.innerHTML= ``;
     
     oGameData.ghostsToCatch = Math.floor(Math.random() * 6) + 10;
+
+    oGameData.caughtGhosts = oGameData.ghostsToCatch;
 
     for (let i = 0; i < oGameData.ghostsToCatch; i++){
 
@@ -67,8 +70,8 @@ function initiateGame () {
         ghostImage.classList.add(`ghost-image`);
         ghostImage.alt = `Spooky image of ghost.`;
         ghostImage.src = `/resources/ghost.png`;
-        ghostImage.style.left = lefty +`px`
-        ghostImage.style.top = toppy +`px`
+        ghostImage.style.left = lefty +`px`;
+        ghostImage.style.top = toppy +`px`;
         ghostContainer.appendChild(ghostImage);
 
         ghostImage.addEventListener(`mouseenter`, pointGoesDown);
@@ -76,54 +79,37 @@ function initiateGame () {
         let netImage = document.createElement(`img`);
         netImage.alt = `Spooky image of net.`;
         netImage.src = `/resources/net.png`;
-        netImage.style.left = lefty +`px`
-        netImage.style.top = toppy +`px`
+        netImage.style.left = lefty +`px`;
+        netImage.style.top = toppy +`px`;
         ghostContainer.appendChild(netImage);
         netImage.classList.add(`d-none`, `net-image`);
-
         netImage.addEventListener(`mouseenter`, pointGoesUp);
-
     }
 }
 
 
 function pointGoesDown () {
     event.target.classList.toggle(`d-none`);
-    event.target.nextElementSibling.classList.toggle(`d-none`)
+    event.target.nextElementSibling.classList.toggle(`d-none`);
     oGameData.ghostsToCatch--;
     gameOver();
 }
 
 function pointGoesUp () {
     event.target.classList.toggle(`d-none`);
-    event.target.previousElementSibling.classList.toggle(`d-none`)
+    event.target.previousElementSibling.classList.toggle(`d-none`);
     oGameData.ghostsToCatch++;
 }
 
 function gameOver () {
 
     if (oGameData.ghostsToCatch === 0) {
-
+        document.querySelector(`#formDiv`).classList.toggle(`d-none`);
+        let winnerMsg = document.querySelector(`#msg`);
+        let loggedInUser = document.querySelector(`#username`).value;
+        winnerMsg.textContent = `Grattis ${loggedInUser} du fångade ${oGameData.caughtGhosts} spöken!`;
+        winnerMsg.style.color = `green`;
         let ghostContainer = document.querySelector(`.ghost-container`);
-        
-        ghostContainer.innerHTML= ``;
-        let playAgainContainer = document.createElement(`div`);
-        playAgainContainer.classList.add(`play-again-container`);
-
-        let winnerText = document.createElement(`h2`);
-        winnerText.textContent = `Grattis, du klarade det!`;
-
-        let playAgainButton = document.createElement(`button`);
-        playAgainButton.textContent = `Spela igen`;
-        playAgainButton.addEventListener(`click`, () => {
-            document.querySelector(`.play-again-container`).classList.add(`d-none`);
-            initiateGame();
-        });
-
-        ghostContainer.appendChild(playAgainContainer);
-        playAgainContainer.appendChild(winnerText);
-        playAgainContainer.appendChild(playAgainButton);
-
+        ghostContainer.remove();
     }
-    
 }

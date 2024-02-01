@@ -5,16 +5,45 @@
 }
 
 img {
-    width: 15vw;
+    width: 300px;
     aspect-ratio: 1;
     position: absolute;
 }
 
-/* Koden ovanför är obligatorisk. Ereventuella CSS skriver ni nedanför denna kommentar */
+/* Koden ovanför är obligatorisk. Ereventuella(sic) CSS skriver ni nedanför denna kommentar */
+/* main {
+    display: flex;
+    justify-content: center;
+} */
+
+.login-form {
+    border: 2px solid black;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.f-col{
+    display: flex;
+    flex-direction: column;
+    padding: .25rem;
+}
+label {
+    padding: .4rem 0;
+}
+
+.username-input, .password-input {
+    padding: .5rem 0;
+}
 
 #msg {
     color: red;
     font-weight: bold;
+}
+
+.play-button {
+    width: 100%;
+    padding: .5rem 0;
+    margin-top: .5rem;
 }
 
 .d-none {
@@ -25,6 +54,3 @@ img {
     position: relative;
 }
 
-/* .ghost-image {
-    background-image: url(/resources/ghost.png);
-} */
