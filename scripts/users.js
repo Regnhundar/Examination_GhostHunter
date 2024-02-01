@@ -21,5 +21,4 @@ let users = [
     username: `Jesper`,
     password: `Nyberg`
     }
-
 ];

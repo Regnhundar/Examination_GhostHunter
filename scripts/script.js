@@ -1,12 +1,21 @@
 'use strict';
 
-// För träning så lade vi till klasser i html från vår javaScript.
+// För träning så lade vi till klasser och element i html från vår javaScript.
 
 window.addEventListener('load', () => {
-    //Här kickar ni igång ert program
+
     document.querySelector(`#spela`).addEventListener(`click`, validateLogin);
+
     let form = document.querySelector(`#formDiv`);
     form.classList.add(`login-form`);
+    // För att centrera vårt formulär så skapade vi en div som vi sedan lade redan existerande element i och stylade sedan på wrappern.
+    let formWrapper = document.createElement(`div`);
+    formWrapper.classList.add(`form-wrapper`);
+    // Lägger in formWrapper före form i DOM.
+    form.parentNode.insertBefore(formWrapper, form);
+    // Möblerar om och lägger form inuti formWrapper.
+    formWrapper.appendChild(form);
+
     document.querySelector(`#username`).classList.add(`username-input`);
     document.querySelector(`#password`).classList.add(`password-input`);
     document.querySelector(`#spela`).classList.add(`play-button`);
@@ -20,13 +29,7 @@ window.addEventListener('load', () => {
     // Vi ville inte styla på id och satte då en klass på det fjärde barnet i form-elementet.
     document.querySelector(`form div:nth-child(4)`).classList.add(`checkbox-container`);
 
-    // För att centrera vårt formulär så skapade vi en div som vi sedan lade redan existerande element i och stylade sedan på wrappern.
-    let formWrapper = document.createElement(`div`);
-    formWrapper.classList.add(`form-wrapper`);
-    // Lägger in formWrapper före form i DOM.
-    form.parentNode.insertBefore(formWrapper, form);
-    // Möblerar om och lägger form inuti formWrapper.
-    formWrapper.appendChild(form);
+
 
 
 });
@@ -38,9 +41,9 @@ function validateLogin (event) {
     const userNameNodeRef = document.querySelector(`#username`);
     const pWordNodeRef = document.querySelector(`#password`);
     const checkboxRef = document.querySelector(`#question`);
-    // Some metoden returnerar en boolean. Vi kollar om det som är skrivet i fältet för användarnamn existerar i vår lista av users.
+    // `Some` metoden returnerar en boolean. Vi kommer använda det för att se värdet i fältet för användarnamn existerar i vår lista av users.
     const checkedName = users.some(user => user.username === userNameNodeRef.value);
-    // Find metoden returnerar det object som har användarnamnet som är inskrivet.
+    // `Find` metoden returnerar det object som har användarnamnet som är inskrivet.
     const userObject = users.find(user => user.username === userNameNodeRef.value);
 
     // För att sidan ska kunna fortsätta även vid error används try catch.
@@ -80,16 +83,20 @@ function validateLogin (event) {
 }
 
 function initiateGame () {
-
+    // Vi skapar en container som ska hålla våra spöken och lägger den i main.
     let ghostContainer = document.createElement(`div`);
     ghostContainer.classList.add(`ghost-container`);
     let mainRef = document.querySelector(`main`);
     mainRef.appendChild(ghostContainer);
     
+    // Spelet ska generera mellan 10 och 15 spöken. Det gör vi och sparar siffran i vårt globala objekt.
     oGameData.ghostsToCatch = Math.floor(Math.random() * 6) + 10;
 
+    // Efter spelets slut vill vi berätta hur många spöken som fångats. Då ghostsToCatch värde uppdateras under spelets gång
+    // vill vi spara det ursprungliga värdet i en ny variabel.
     oGameData.caughtGhosts = oGameData.ghostsToCatch;
 
+    // Vi tar vårt slumpade värde och skapar ett spöke och ett nät för varje iteration av loopen som vi lägger i vår wrapper ghost-container
     for (let i = 0; i < oGameData.ghostsToCatch; i++){
 
         let lefty = oGameData.left();
@@ -103,6 +110,7 @@ function initiateGame () {
         ghostImage.style.top = toppy +`px`;
         ghostContainer.appendChild(ghostImage);
 
+        // ghostImage kommer anropa funktionen pointGoesDown när vi för musen över ghostImage.
         ghostImage.addEventListener(`mouseenter`, pointGoesDown);
 
         let netImage = document.createElement(`img`);
@@ -112,24 +120,31 @@ function initiateGame () {
         netImage.style.top = toppy +`px`;
         ghostContainer.appendChild(netImage);
         netImage.classList.add(`d-none`, `net-image`);
+
+        // netImage kommer anropa funktionen pointGoesUp när vi för musen över netImage.
         netImage.addEventListener(`mouseenter`, pointGoesUp);
     }
 }
 
-
-function pointGoesDown () {
+// Funktionen sätter klassen d-none på det element som anropat funktionen. Den tar sedan bort klassen d-none på det element som direkt följer i DOM.
+function pointGoesDown (event) {
     event.target.classList.toggle(`d-none`);
     event.target.nextElementSibling.classList.toggle(`d-none`);
+    // Globala variabelns värde som vi satte i initiateGame() uppdateras varje gång funktionen anropas. 
     oGameData.ghostsToCatch--;
+    // Efter poängen uppdaterats kollar vi gameOver om det faktiskt är gameOver.
     gameOver();
 }
 
-function pointGoesUp () {
+// Se ovan. 
+function pointGoesUp (event) {
     event.target.classList.toggle(`d-none`);
     event.target.previousElementSibling.classList.toggle(`d-none`);
     oGameData.ghostsToCatch++;
 }
 
+// Anropas varje gång poängen går ned. Är poängen 0, dvs det finns inga spöken kvar så visar vi formuläret igen. Vi skriver ut ett vinstmeddelande
+// och raderar ghost-container från DOM.
 function gameOver () {
 
     if (oGameData.ghostsToCatch === 0) {
