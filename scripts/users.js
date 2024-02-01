@@ -16,5 +16,10 @@ let users = [
     {
      username: `Jacob`,
      password: `Collen`
+    },
+    {
+    username: `Jesper`,
+    password: `Nyberg`
     }
+
 ];
